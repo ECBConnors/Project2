@@ -18,6 +18,15 @@ router.post('/:id', (req, res) => {
   });
 });
 
+router.delete('/:id', (req, res) => {
+  Post.findByIdAndDelete(req.params.id, (err, post) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/');
+  });
+});
+
 router.get('/:id/edit', (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     res.render('posts/edit.ejs', {post:post});
