@@ -12,7 +12,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   Post.findByIdAndUpdate(req.params.id, {$set:req.body}, (err, post) => {
     res.redirect('/posts/' + req.params.id);
   });

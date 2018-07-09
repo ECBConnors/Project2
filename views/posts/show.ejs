@@ -3,10 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="/show.css">
   </head>
   <body>
     <h1><%=post.title%></h1>
     <img src="<%=post.image%>" alt="">
     <p><%=post.text%></p>
+    <a href="/posts/<%=post.id%>/edit">Edit Post</a>
+    <a href="/">Return to Index</a>
   </body>
 </html>
