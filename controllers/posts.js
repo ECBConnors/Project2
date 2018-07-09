@@ -8,7 +8,7 @@ router.get('/new', (req, res) => {
 
 router.get('/:id', (req, res) => {
   Post.findById(req.params.id, (err, post) => {
-    res.render('posts/show.ejs', {post:post});
+    res.render('posts/show.ejs', {post:post, currentUser:req.session.currentUser});
   });
 });
 
@@ -34,6 +34,7 @@ router.get('/:id/edit', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  req.body.author = req.session.currentUser.displayName;
   Post.create(req.body, (err, post) => {
     res.redirect('/');
   });

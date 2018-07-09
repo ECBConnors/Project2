@@ -19,7 +19,8 @@ app.use(session({
 
 app.get('/', (req, res) => {
   Post.find({}, (err, posts) => {
-    res.render('index.ejs', {posts:posts});
+    console.log(req.session.currentUser);
+    res.render('index.ejs', {posts:posts, currentUser:req.session.currentUser});
   });
 });
 
