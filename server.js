@@ -7,6 +7,7 @@ const Post = require('./models/posts.js');
 const methodoverride = require('method-override');
 const session = require('express-session');
 
+//middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:false}));
 app.use(methodoverride('_method'));
@@ -17,19 +18,22 @@ app.use(session({
   saveUninitialized: false
 }));
 
+//index
 app.get('/', (req, res) => {
   Post.find({}, (err, posts) => {
-    console.log(req.session.currentUser);
     res.render('index.ejs', {posts:posts, currentUser:req.session.currentUser});
   });
 });
 
+//posts routes
 const postsController = require('./controllers/posts.js');
 app.use('/posts', postsController);
 
+//users routes
 const usersController = require('./controllers/users.js');
 app.use('/users', usersController);
 
+//sessions routes
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
 

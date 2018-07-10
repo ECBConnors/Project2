@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const paginate = require('mongoose-paginate');
 
 const postSchema = mongoose.Schema({
-  title: String,
+  title: {type: String, required: true},
   text: String,
   image: String,
   comments: [{poster: String, comment: String}],

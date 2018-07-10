@@ -9,7 +9,18 @@
     <h1><%=post.title%></h1>
     <img src="<%=post.image%>" alt="">
     <p><%=post.text%></p>
+    <div class="commentsContainer">
+      <% for (let i = 0; i < post.comments.length; i++) {%>
+        <div class="comment">
+          <%=post.comments[i].poster%>: <%=post.comments[i].comment%>
+        </div>
+      <%}%>
+    </div>
     <% if (currentUser) {%>
+      <form class="" action="/posts/<%=post.id%>/comment" method="post">
+        <input type="textfield" name="comment" placeholder="Write a comment">
+        <input type="submit" value="Submit Comment">
+      </form>
       <% if (currentUser.displayName == post.author) {%>
         <a href="/posts/<%=post.id%>/edit">Edit Post</a>
       <%}%>

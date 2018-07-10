@@ -3,31 +3,39 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="./index.css">
   </head>
   <body>
     <h1>Index Page</h1>
     <% let name = null%>
+    <!-- different appearances if logged in vs not -->
     <% if (currentUser) {%>
       <form action="/sessions?_method=DELETE" method="POST">
         <input type="submit" value="Log Out">
       </form>
+      <a href="/posts/new">Create New Post</a>
       <% name = currentUser.displayName%>
     <%} else { %>
       <a href="/sessions/new">Log In</a>
       <a href="/users/new">Register</a><br/>
     <%}%>
-    <a href="/posts/new">Create New Post</a>
-    <ul>
+    <!-- list posts in posts container -->
+    <div class="postsContainer">
       <% for (let i = 0; i < posts.length; i++) {%>
-        <li>
+        <div class="post">
           <a href="/posts/<%=posts[i].id%>"><%=posts[i].title%></a>
+          <!-- only show the delete option if the post's creator is logged in -->
           <% if (name == posts[i].author) {%>
             <form action="/posts/<%=posts[i].id%>?_method=DELETE" method="POST">
               <input type="submit" value="Delete">
             </form>
           <%}%>
-        </li>
+          <br/>
+          <a href="/posts/<%=posts[i].id%>">
+            <img src="<%=posts[i].image%>" alt="">
+          </a>
+        </div>
       <%}%>
-    </ul>
+    </div>
   </body>
 </html>

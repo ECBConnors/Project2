@@ -3,7 +3,11 @@ const router = express.Router();
 const Post = require('../models/posts.js');
 
 router.get('/new', (req, res) => {
-  res.render('posts/new.ejs');
+  if (req.session.currentUser) {
+    res.render('posts/new.ejs');
+  } else {
+    res.redirect('/sessions/new', {target: '/posts/new'});
+  }
 });
 
 router.get('/:id', (req, res) => {
@@ -24,6 +28,13 @@ router.delete('/:id', (req, res) => {
       console.log(err);
     }
     res.redirect('/');
+  });
+});
+
+router.post('/:id/comment', (req, res) => {
+  req.body.poster = req.session.currentUser.displayName;
+  Post.findByIdAndUpdate(req.params.id, {$push:{comments:req.body}}, (err, comment) => {
+    res.redirect('/posts/' + req.params.id);
   });
 });
 
