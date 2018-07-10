@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/posts.js');
 
+//user defines new post
+//if not logged in, sends to login page
 router.get('/new', (req, res) => {
   if (req.session.currentUser) {
     res.render('posts/new.ejs');
@@ -40,7 +42,15 @@ router.post('/:id/comment', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
   Post.findById(req.params.id, (err, post) => {
-    res.render('posts/edit.ejs', {post:post});
+    if (req.session.currentUser) {
+      if (post.author == req.session.currentUser.displayName) {
+        res.render('posts/edit.ejs', {post:post});
+      } else {
+        res.redirect('/posts/' + req.params.id);
+      }
+    } else {
+      res.redirect('/sessions/new');
+    }
   });
 });
 
