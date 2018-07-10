@@ -49,7 +49,8 @@ router.get('/:id/edit', (req, res) => {
         res.redirect('/posts/' + req.params.id);
       }
     } else {
-      res.redirect('/sessions/new');
+      target="/posts/" + req.params.id + "/edit"
+      res.render('sessions/new.ejs', {target:target});
     }
   });
 });
