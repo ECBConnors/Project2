@@ -9,13 +9,19 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   User.findOne({username:req.body.username}, (err, user) => {
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-      req.session.currentUser = user;
-    }
-    if (!req.body.target) {
-      res.redirect('/');
+    if (err || !user) {
+      console.log(err);
+      res.redirect('/sessions/new');
     } else {
-      res.redirect(req.body.target);
+      console.log(user);
+      if (bcrypt.compareSync(req.body.password, user.password)) {
+        req.session.currentUser = user;
+      }
+      if (!req.body.target) {
+        res.redirect('/');
+      } else {
+        res.redirect(req.body.target);
+      }
     }
   });
 });
