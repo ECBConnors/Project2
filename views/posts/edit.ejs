@@ -8,7 +8,7 @@
     <h1>edit existing post</h1>
     <form class="" action="/posts/<%=post.id%>?_method=PUT" method="POST">
       <input type="text" name="title" value="<%=post.title%>"><br/>
-      <input type="textfield" name="text" value="<%=post.text%>"><br/>
+      <textarea name="text" rows="6" cols="80"><%=post.text%></textarea><br/>
       <input type="text" name="image" value="<%=post.image%>"><br/>
       <input type="submit" value="Confirm Edit">
     </form>

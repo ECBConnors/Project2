@@ -18,7 +18,8 @@
     </div>
     <% if (currentUser) {%>
       <form class="" action="/posts/<%=post.id%>/comment" method="post">
-        <input type="textfield" name="comment" placeholder="Write a comment">
+        <!-- <input class="comment" type="textfield" name="comment" placeholder="Write a comment"> -->
+        <textarea name="comment" rows="6" cols="80" placeholder="Write a comment"></textarea>
         <input type="submit" value="Submit Comment">
       </form>
       <% if (currentUser.displayName == post.author) {%>

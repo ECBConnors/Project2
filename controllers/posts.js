@@ -8,7 +8,7 @@ router.get('/new', (req, res) => {
   if (req.session.currentUser) {
     res.render('posts/new.ejs');
   } else {
-    res.redirect('/sessions/new', {target: '/posts/new'});
+    res.render('sessions/new.ejs', {target: '/posts/new'});
   }
 });
 
