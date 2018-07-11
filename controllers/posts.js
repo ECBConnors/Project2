@@ -12,18 +12,21 @@ router.get('/new', (req, res) => {
   }
 });
 
+//show page for post
 router.get('/:id', (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     res.render('posts/show.ejs', {post:post, currentUser:req.session.currentUser});
   });
 });
 
+//edit post
 router.put('/:id', (req, res) => {
   Post.findByIdAndUpdate(req.params.id, {$set:req.body}, (err, post) => {
     res.redirect('/posts/' + req.params.id);
   });
 });
 
+//delete post
 router.delete('/:id', (req, res) => {
   Post.findByIdAndDelete(req.params.id, (err, post) => {
     if (err) {
@@ -33,6 +36,7 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+//write comment
 router.post('/:id/comment', (req, res) => {
   req.body.poster = req.session.currentUser.displayName;
   Post.findByIdAndUpdate(req.params.id, {$push:{comments:req.body}}, (err, comment) => {
@@ -40,6 +44,7 @@ router.post('/:id/comment', (req, res) => {
   });
 });
 
+//render edit page
 router.get('/:id/edit', (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     if (req.session.currentUser) {

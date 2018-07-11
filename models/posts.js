@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const paginate = require('mongoose-paginate');
+const paginate = require('mongoose-paginate'); //this doesn't actually work
 
 const postSchema = mongoose.Schema({
   title: {type: String, required: true},

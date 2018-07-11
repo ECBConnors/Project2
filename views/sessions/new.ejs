@@ -6,6 +6,7 @@
   </head>
   <body>
     <h1>Log In</h1>
+    <!-- form for login. hidden target input is for redirects if the user was sent here after trying to perform an action that requires an active session if they don't have one already -->
     <form action="/sessions" method="post">
       <input type="text" name="username" placeholder="Username"><br/>
       <input type="password" name="password" placeholder="Password"><br/>

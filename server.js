@@ -12,6 +12,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended:false}));
 app.use(methodoverride('_method'));
 
+//session
 app.use(session({
   secret:'thissecretbestsecret',
   resave: false,

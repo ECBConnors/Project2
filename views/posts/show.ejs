@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="/show.css">
   </head>
   <body>
+    <!-- render post contents -->
     <h1><%=post.title%></h1>
     <img src="<%=post.image%>" alt="">
     <p><%=post.text%></p>
+    <!-- render comments -->
     <div class="commentsContainer">
       <% for (let i = 0; i < post.comments.length; i++) {%>
         <div class="comment">
@@ -16,12 +18,13 @@
         </div>
       <%}%>
     </div>
+    <!-- allow logged in users to comment -->
     <% if (currentUser) {%>
       <form class="" action="/posts/<%=post.id%>/comment" method="post">
-        <!-- <input class="comment" type="textfield" name="comment" placeholder="Write a comment"> -->
         <textarea name="comment" rows="6" cols="80" placeholder="Write a comment"></textarea>
         <input type="submit" value="Submit Comment">
       </form>
+      <!-- allow the author to edit the post -->
       <% if (currentUser.displayName == post.author) {%>
         <a href="/posts/<%=post.id%>/edit">Edit Post</a>
       <%}%>
